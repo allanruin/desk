@@ -23,7 +23,18 @@ type Task struct {
 	Tid   int `orm:"auto"`
 	Taker string
 	Asker string
-	Taken int
+	State string
+}
+
+type User struct {
+	Id         int `orm:"auto"`
+	Wid        string
+	Name       string
+	HrCode     string
+	Department string
+	Position   string
+	State      string
+	Phone      string
 }
 
 func init() {
@@ -34,6 +45,7 @@ func init() {
 	orm.RegisterModel(new(BaseTasks))
 	orm.RegisterModel(new(State))
 	orm.RegisterModel(new(Task))
+	orm.RegisterModel(new(User))
 
 	// set default database
 	orm.RegisterDataBase("default", "mysql",

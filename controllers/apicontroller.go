@@ -36,18 +36,33 @@ func (this *APIController) Get() {
 func (this *APIController) Post() {
 	body := this.Ctx.Input.RequestBody
 	bodystr := BtyeToString(body)
+
+	// debugging received message
 	beego.Trace("body: ", bodystr)
 
 	rc := new(RecvTextMsg)
 	xml.Unmarshal(body, rc)
 
 	// beego.Trace("received struct", rc)
-
 	// rt := rc.Return("you said : " + rc.Content)
 
-	state := GetState(rc.FromUserName)
+	rt := new(RetTextMsg)
 
-	rt := rc.Process(state)
+	if rc.MsgType == "event" {
+		em := new(EventMsg)
+		xml.Unmarshal(body, em)
+		if em.Event == "subscribe" {
+
+		} else if em.Event == "unsubscribe" {
+
+		} else {
+			beego.Trace("接受到除了subscribe,unsubscribe之外的事件:", bodystr)
+			rc.Return("you said : " + rc.Content)
+		}
+	} // now if not return it should be
+
+	state := GetState(rc.FromUserName)
+	rt = rc.Process(state)
 
 	// rbuf, err := xml.Marshal(rt)
 	// if err != nil {
@@ -71,7 +86,7 @@ func (this *APIController) GetAccessToken() {
 func GetState(wid string) string {
 	if strings.TrimSpace(wid) == "" {
 		beego.Error("查找了空的wid")
-		return "init"
+		return "timeout"
 	}
 
 	o := orm.NewOrm()
@@ -81,7 +96,7 @@ func GetState(wid string) string {
 
 	if err != nil {
 		beego.Error("找不到用户的state")
-		return "init"
+		return "timeout"
 	}
 	return state.State
 }

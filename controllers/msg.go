@@ -61,3 +61,19 @@ func (rc *RecvTextMsg) Process(state string) *RetTextMsg {
 
 	return rt
 }
+
+/*
+<ToUserName><![CDATA[toUser]]></ToUserName>
+<FromUserName><![CDATA[FromUser]]></FromUserName>
+<CreateTime>123456789</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[subscribe]]></Event>
+*/
+
+type EventMsg struct {
+	ToUserName   string
+	FromUserName string
+	CreateTime   int
+	MsgType      string
+	Event        string
+}
