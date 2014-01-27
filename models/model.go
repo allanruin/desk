@@ -27,14 +27,15 @@ type Task struct {
 }
 
 type User struct {
-	Id         int `orm:"auto"`
-	Wid        string
+	Id         int    `orm:"auto"`
+	Wid        string `orm:"key"`
 	Name       string
-	HrCode     string
+	HrCode     string `orm:"column(hrcode)"`
 	Department string
 	Position   string
 	State      string
 	Phone      string
+	Tail       string
 }
 
 func init() {
