@@ -2,6 +2,7 @@ package models
 
 import (
 	// "github.com/astaxie/beego"
+	// "github.com/allanruin/beego/orm"
 	"github.com/astaxie/beego/orm"
 )
 
@@ -29,13 +30,13 @@ type Task struct {
 type User struct {
 	Id         int    `orm:"auto"`
 	Wid        string `orm:"key"`
-	Name       string
-	HrCode     string `orm:"column(hrcode)"`
+	Name       string `valid:"Required"`
+	HrCode     string `orm:"column(hrcode)",valid:"Required"`
 	Department string
 	Position   string
 	State      string
 	Phone      string
-	Tail       string
+	Tail       string `valid:"Required"`
 }
 
 func init() {
