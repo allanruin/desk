@@ -51,7 +51,6 @@ func init() {
 
 	// set default database
 	orm.RegisterDataBase("default", "mysql",
-		// "hruser:hrisasimpleuser@/56.1.89.172?charset=utf8", 30)
-		// "hruser:hrisasimpleuser@tcp(56.1.89.172:3306)/hrresume?charset=utf8", 30)
-		"desk:deskisasimpleuser@tcp(localhost:3306)/desk?charset=utf8", 30)
+
+		"desk:sdfsjfksjdfks@tcp(localhost:3306)/desk?charset=utf8", 30)
 }
